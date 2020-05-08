@@ -1,53 +1,43 @@
-// // src/App.js
-//
-// import React, {Component} from 'react';
-//
-// class App extends Component {
-//     render () {
-//         return (
-//             <div class="card">
-//                 <div class="card-body">
-//                     <h5 class="card-title">Steve Jobs</h5>
-//                     <h6 class="card-subtitle mb-2 text-muted">steve@apple.com</h6>
-//                     <p class="card-text">Stay Hungry, Stay Foolish</p>
-//                 </div>
-//             </div>        );
-//     }
-// }
-//
-// export default App;
-//
+
+
 
 
 import React, { useState, useEffect } from "react";
 
-const News = () => {
-    const [hasError, setErrors] = useState(false);
-    const [news, setNews] = useState({});
-    const apiKey=process.env.REACT_APP_SECRET_KEY;
-
+const useFetch = url => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
     async function fetchData() {
-        const res = await fetch("https://api.nytimes.com/svc/topstories/v2/world.json?api-key="+ apiKey);
-        res
-            .json()
-            .then(res => setNews(res['results'][1]['title']))
-            .then(pic => setNews(pic['results']['multimedia']['url']))
-
-            .catch(err => setErrors(err));
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+        setLoading(false)
     }
 
     useEffect(() => {
-        fetchData();
-    });
+        fetchData()
+    }, []);
+
+    return {loading,data};
+};
+
+function App() {
+    const apiKey=process.env.REACT_APP_SECRET_KEY;
+
+    const {loading,data} = useFetch("https://api.nytimes.com/svc/topstories/v2/world.json?api-key="+ apiKey);
 
     return (
         <div>
-
-            <h1>{JSON.stringify(news)}</h1>
-            <hr />
-            <span>Has error: {JSON.stringify(hasError)}</span>
+            {loading ? <div>Loading...</div> :
+                <ul>
+                    <li>{data.results[0].title}</li>
+                    <li>{data.results[1].title}</li>
+                    <li>{data.results[2].title}</li>
+                    <li>{data.results[3].title}</li>
+                </ul>
+            }
         </div>
-    );
+    )
+}
 
-};
-export default News;
+export default App;
