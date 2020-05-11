@@ -32,11 +32,11 @@ function App() {
                 <ul>
                     <a href={data.results[0].url}><li>{data.results[0].title} </li></a>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[0].multimedia[0].url}/>
-                    <li>{data.results[1].title}</li>
+                    <a href={data.results[1].url}><li>{data.results[1].title}</li></a>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[1].multimedia[0].url}/>
-                    <li>{data.results[2].title}</li>
+                    <a href={data.results[2].url}><li>{data.results[2].title}</li></a>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[2].multimedia[0].url}/>
-                    <li>{data.results[3].title}</li>
+                    <a href={data.results[3].url}><li>{data.results[3].title}</li></a>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[3].multimedia[0].url}/>
                 </ul>
             }
