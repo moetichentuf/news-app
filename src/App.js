@@ -30,7 +30,7 @@ function App() {
         <div>
             {loading ? <div>Loading...</div> :
                 <ul>
-                    <li>{data.results[0].title}</li>
+                    <a href={data.results[0].url}><li>{data.results[0].title} </li></a>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[0].multimedia[0].url}/>
                     <li>{data.results[1].title}</li>
                     <img style={{ width: "25%", margin: "30px 0" }} src={data.results[1].multimedia[0].url}/>
